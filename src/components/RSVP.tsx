@@ -1,15 +1,70 @@
 import React, { useState } from 'react';
 import SectionTitle from './SectionTitle';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Loader2 } from 'lucide-react';
 import { weddingConfig } from '../config';
 
 const RSVP: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
-  const { date } = weddingConfig;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { date, rsvpApiUrl } = weddingConfig;
   
-  const handleSubmit = (e: React.FormEvent) => {
+  // Form State
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    attending: 'yes',
+    guests: '1',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError('');
+
+    // Validation
+    if (!formData.name || !formData.phone) {
+      setError('Vui lòng điền tên và số điện thoại');
+      setLoading(false);
+      return;
+    }
+
+    // Check if API URL is set
+    if (!rsvpApiUrl) {
+       // Fallback for demo/no-backend mode
+       console.warn("No Google Sheet API URL configured in config.ts");
+       setTimeout(() => {
+         setSubmitted(true);
+         setLoading(false);
+       }, 1000);
+       return;
+    }
+
+    try {
+      // Send data to Google Apps Script
+      // mode: 'no-cors' is required for Google Scripts to work without complex CORS setup
+      await fetch(rsvpApiUrl, {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      // Since we use no-cors, we assume success if no network error occurred
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError('Có lỗi xảy ra. Vui lòng thử lại sau.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -20,50 +75,117 @@ const RSVP: React.FC = () => {
         {submitted ? (
           <div className="bg-white rounded-2xl p-10 text-center shadow-lg animate-fade-in border border-wedding-gold/20">
             <CheckCircle className="mx-auto text-wedding-gold w-16 h-16 mb-4" />
-            <h3 className="text-2xl font-serif text-gray-800 mb-2">Thank You!</h3>
-            <p className="text-gray-600">Chúng mình đã nhận được phản hồi của bạn.</p>
-            <button onClick={() => setSubmitted(false)} className="mt-6 text-wedding-red underline text-sm hover:text-red-800">
-              Gửi lại
-            </button>
+            <h3 className="text-2xl font-serif text-gray-800 mb-2">Cảm ơn bạn!</h3>
+            <p className="text-gray-600 mb-6">Chúng mình đã nhận được phản hồi của bạn.</p>
+            <div className="p-4 bg-gray-50 rounded-lg text-sm text-gray-500">
+                Hẹn gặp lại bạn vào ngày {date.fullDate}!
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 md:p-10 space-y-6 border border-wedding-gold/20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Họ và Tên</label>
-                    <input required type="text" className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" placeholder="Nguyễn Văn A" />
+                    <input 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required 
+                      type="text" 
+                      className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" 
+                      placeholder="Nguyễn Văn A" 
+                    />
                 </div>
                 <div>
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Số điện thoại</label>
-                    <input required type="tel" className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" placeholder="0912..." />
+                    <input 
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required 
+                      type="tel" 
+                      className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" 
+                      placeholder="0912..." 
+                    />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tham dự</label>
-                <div className="flex gap-4">
-                    <label className="flex-1 cursor-pointer">
-                        <input type="radio" name="attending" value="yes" className="peer sr-only" defaultChecked />
-                        <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-wedding-red peer-checked:text-white peer-checked:border-transparent transition-all">
-                            Có
-                        </div>
-                    </label>
-                    <label className="flex-1 cursor-pointer">
-                        <input type="radio" name="attending" value="no" className="peer sr-only" />
-                        <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-gray-400 peer-checked:text-white peer-checked:border-transparent transition-all">
-                            Không
-                        </div>
-                    </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tham dự</label>
+                    <div className="flex gap-4">
+                        <label className="flex-1 cursor-pointer">
+                            <input 
+                              type="radio" 
+                              name="attending" 
+                              value="yes" 
+                              checked={formData.attending === 'yes'}
+                              onChange={handleChange}
+                              className="peer sr-only" 
+                            />
+                            <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-wedding-red peer-checked:text-white peer-checked:border-transparent transition-all hover:bg-gray-50">
+                                Có
+                            </div>
+                        </label>
+                        <label className="flex-1 cursor-pointer">
+                            <input 
+                              type="radio" 
+                              name="attending" 
+                              value="no" 
+                              checked={formData.attending === 'no'}
+                              onChange={handleChange}
+                              className="peer sr-only" 
+                            />
+                            <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-transparent transition-all hover:bg-gray-50">
+                                Không
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Số lượng khách</label>
+                     <select 
+                        name="guests"
+                        value={formData.guests}
+                        onChange={handleChange}
+                        className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800"
+                        disabled={formData.attending === 'no'}
+                     >
+                        <option value="1">1 Người</option>
+                        <option value="2">2 Người</option>
+                        <option value="3">3 Người</option>
+                        <option value="4">4 Người</option>
+                     </select>
                 </div>
               </div>
 
               <div>
                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Lời nhắn</label>
-                 <textarea rows={2} className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent resize-none text-gray-800" placeholder="Lời chúc..."></textarea>
+                 <textarea 
+                   name="message"
+                   value={formData.message}
+                   onChange={handleChange}
+                   rows={2} 
+                   className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent resize-none text-gray-800" 
+                   placeholder="Lời chúc..."
+                 ></textarea>
               </div>
 
-              <button type="submit" className="w-full bg-wedding-red text-white font-bold py-4 rounded-xl hover:bg-red-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                Gửi Xác Nhận
+              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="w-full bg-wedding-red text-white font-bold py-4 rounded-xl hover:bg-red-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+              >
+                {loading ? (
+                    <>
+                        <Loader2 className="animate-spin" />
+                        Đang gửi...
+                    </>
+                ) : (
+                    "Gửi Xác Nhận"
+                )}
               </button>
           </form>
         )}

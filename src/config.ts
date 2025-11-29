@@ -5,6 +5,9 @@ import React from 'react';
 // Customize your wedding details here.
 
 export const weddingConfig = {
+  // RENAME THIS TO YOUR GOOGLE SCRIPT URL AFTER DEPLOYING (See README)
+  rsvpApiUrl: "https://script.google.com/macros/s/AKfycbzccQOZJuwlesKNXMvtQ6taohp_8qYhKXn0KGjZmghZQtcyEKU7Ce-M78jxAsDzG7Jm/exec", 
+
   groom: {
     firstName: "Tiến Khương",
     fullName: "Nguyễn Tiến Khương",
