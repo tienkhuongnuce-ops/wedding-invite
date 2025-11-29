@@ -39,17 +39,17 @@ const Gallery: React.FC = () => {
         <div className="columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">
           {images.gallery.map((photo, index) => (
             <div key={index} className="break-inside-avoid bg-white p-3 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
-              <div className="overflow-hidden rounded-md bg-gray-100 min-h-[200px] relative">
+              <div className="overflow-hidden rounded-md relative group">
                 <img 
                   src={photo} 
                   alt={`Moment ${index}`} 
                   className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    // Prevent infinite loop
+                    // Prevent infinite loop if placeholder fails
                     target.onerror = null; 
-                    // Show a placeholder so user knows the path is wrong
-                    target.src = "https://placehold.co/600x800/e2e8f0/94a3b8?text=Photo+Missing\\nCheck+Path";
+                    target.src = `https://placehold.co/600x400/e2e8f0/9F1239?text=Missing:+${photo.replace('/', '')}`;
+                    target.classList.add("border-4", "border-red-500");
                   }}
                 />
               </div>

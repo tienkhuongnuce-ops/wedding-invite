@@ -2,7 +2,13 @@ import React from 'react';
 import { weddingConfig } from '../config';
 
 const Invitation: React.FC = () => {
-  const { groom, bride, images } = weddingConfig;
+  const { groom, bride } = weddingConfig;
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    target.onerror = null;
+    target.src = "https://placehold.co/400x400/e2e8f0/9F1239?text=No+Photo";
+  };
 
   return (
     <section id="invitation" className="py-24 px-4 relative overflow-hidden bg-wedding-cream">
@@ -38,8 +44,13 @@ const Invitation: React.FC = () => {
 
           {/* Groom's Side */}
           <div className="text-center relative z-10 p-6 transition-all duration-500">
-             <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-2 border-wedding-gold p-1 shadow-md">
-                 <img src={images.groom} alt="Groom" className="w-full h-full object-cover rounded-full" />
+             <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-2 border-wedding-gold p-1 shadow-md bg-gray-200">
+                 <img 
+                   src={weddingConfig.images.gallery[0]} 
+                   alt="Groom" 
+                   className="w-full h-full object-cover rounded-full" 
+                   onError={handleImageError}
+                 />
              </div>
             <h3 className="text-4xl font-names text-wedding-red mb-2 scale-110 drop-shadow-sm">{groom.firstName}</h3>
             <p className="text-xs uppercase tracking-widest text-wedding-gold mb-4 font-bold">Chú Rể</p>
@@ -47,3 +58,31 @@ const Invitation: React.FC = () => {
               {groom.father && <p className="font-semibold">Ông: {groom.father}</p>}
               {groom.mother && <p className="font-semibold">Bà: {groom.mother}</p>}
             </div>
+            <p className="text-gray-500 text-sm italic mt-3 max-w-xs mx-auto">{groom.address}</p>
+          </div>
+
+          {/* Bride's Side */}
+          <div className="text-center relative z-10 p-6 transition-all duration-500">
+            <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-2 border-wedding-gold p-1 shadow-md bg-gray-200">
+                 <img 
+                   src={weddingConfig.images.gallery[1]} 
+                   alt="Bride" 
+                   className="w-full h-full object-cover rounded-full" 
+                   onError={handleImageError}
+                 />
+             </div>
+            <h3 className="text-4xl font-names text-wedding-red mb-2 scale-110 drop-shadow-sm">{bride.firstName}</h3>
+            <p className="text-xs uppercase tracking-widest text-wedding-gold mb-4 font-bold">Cô Dâu</p>
+            <div className="font-serif text-gray-800 space-y-1">
+              {bride.father && <p className="font-semibold">Ông: {bride.father}</p>}
+              {bride.mother && <p className="font-semibold">Bà: {bride.mother}</p>}
+            </div>
+            <p className="text-gray-500 text-sm italic mt-3 max-w-xs mx-auto">{bride.address}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Invitation;
