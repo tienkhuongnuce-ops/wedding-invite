@@ -1,19 +1,86 @@
-to { opacity: 1; transform: translateY(0); }
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiến Khương & Thu Phương - Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Charm:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script>
+      /* 
+       * CUSTOMIZE COLORS HERE
+       * Strict Palette: Red, Gold, Cream
+       */
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'wedding-red': '#9F1239',   // Deep Ruby Red (Primary Action, Icons, Main Accent)
+              'wedding-gold': '#B45309',  // Antique Gold (Borders, Secondary Text, Dividers)
+              'wedding-cream': '#FDFBF7', // Warm Cream (Backgrounds)
+              
+              'wedding-text': '#374151',   // Crisp Slate (Body text)
+              'wedding-accent': '#9F1239', // Mapped to Red
+              'wedding-hero-text': '#FFFFFF', // Pure White for text on dark images
+            },
+            fontFamily: {
+              names: ['"Great Vibes"', '"Dancing Script"', 'cursive'], 
+              script: ['"Charm"', 'cursive'],
+              serif: ['"Cormorant Garamond"', '"Playfair Display"', 'serif'],
+              sans: ['"Be Vietnam Pro"', '"Quicksand"', 'sans-serif'],
+            },
+            backgroundImage: {
+              'floral-pattern': "url('https://www.transparenttextures.com/patterns/cream-paper.png')",
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #FDFBF7;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #FDFBF7;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #B45309;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #9F1239;
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      .animate-spin-slow {
+        animation: spin 15s linear infinite;
+      }
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "vite": "https://aistudiocdn.com/vite@^7.2.4",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
-  }
-}
-</script>
-</head>
+  </head>
   <body class="bg-wedding-cream text-wedding-text font-sans antialiased bg-floral-pattern">
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
