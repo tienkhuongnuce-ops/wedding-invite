@@ -45,12 +45,10 @@ export const weddingConfig = {
     hero: "/Couple.jpg",
     // Photos for the gallery section
     gallery: [
-      "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1522673607200-1645062cd958?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1519225448526-0645155be456?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1623940866099-da1869e5d774?q=80&w=800&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1520854221256-17451cc330e7?q=80&w=800&auto=format&fit=crop",
+      "/GL1.jpg",
+      "/GL2.jpg",
+      "/GL3.jpg",
+
     ]
   },
   timeline: [
