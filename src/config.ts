@@ -46,7 +46,7 @@ export const weddingConfig = {
   images: {
     // IMPORTANT: Put these images in the "public" folder at the project root.
     // Example: public/hero.jpg
-    hero: "/hero.jpg", 
+    hero: "/Couple.jpg", 
     
     // Profile photos
     groom: "/groom.jpg",
@@ -55,12 +55,12 @@ export const weddingConfig = {
 
     // Rename your gallery photos to match these names:
     gallery: [
-      "/gallery-1.jpg",
-      "/gallery-2.jpg",
-      "/gallery-3.jpg",
-      "/gallery-4.jpg",
-      "/gallery-5.jpg",
-      "/gallery-6.jpg",
+      "/gallery1.jpg",
+      "/gallery2.jpg",
+      "/gallery3.jpg",
+      "/gallery4.jpg",
+      "/gallery5.jpg",
+      "/gallery6.jpg",
     ]
   },
   timeline: [
