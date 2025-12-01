@@ -40,7 +40,7 @@ export const weddingConfig = {
     subtitle: "Lưu giữ khoảnh khắc",
     // Replace this with your YouTube Embed URL
     // Format: https://www.youtube.com/embed/VIDEO_ID
-    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?si=Example", 
+    embedUrl: "https://youtu.be/q-Lp5c1l_Ys?si=ZpqDX2HFuCxa0d6_", 
     description: "Tình yêu không phải là tìm thấy một người hoàn hảo, mà là học cách nhìn thấy những điều tuyệt vời từ một người chưa hoàn hảo."
   },
   images: {
