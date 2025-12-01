@@ -146,21 +146,22 @@ const Gallery: React.FC = () => {
           {/* Close Button */}
           <button 
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-[110]"
+            className="absolute top-4 right-4 text-white/80 hover:text-white p-2 rounded-full bg-black/20 hover:bg-white/10 transition-colors z-[110]"
           >
-            <X size={32} />
+            <X size={28} />
           </button>
 
           {/* Prev Button */}
           <button 
             onClick={prevImage}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-[110] hidden md:block"
+            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/90 p-3 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm transition-all z-[110]"
+            aria-label="Previous Image"
           >
-            <ChevronLeft size={48} />
+            <ChevronLeft size={24} className="md:w-10 md:h-10" />
           </button>
 
           {/* Image Container */}
-          <div className="relative max-w-[90vw] max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-w-[90vw] max-h-[85vh] md:max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
             <img 
               src={images.gallery[lightboxIndex]} 
               alt="Gallery Fullscreen" 
@@ -175,9 +176,10 @@ const Gallery: React.FC = () => {
           {/* Next Button */}
           <button 
             onClick={nextImage}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors z-[110] hidden md:block"
+            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/90 p-3 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm transition-all z-[110]"
+            aria-label="Next Image"
           >
-            <ChevronRight size={48} />
+            <ChevronRight size={24} className="md:w-10 md:h-10" />
           </button>
         </div>
       )}
