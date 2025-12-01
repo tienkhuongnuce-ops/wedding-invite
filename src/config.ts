@@ -48,7 +48,7 @@ export const weddingConfig = {
     subtitle: "Lưu giữ khoảnh khắc",
     // Paste ANY valid YouTube link here. 
     // Works with: https://www.youtube.com/watch?v=... OR https://youtu.be/...
-    embedUrl: "https://www.youtube.com/watch?v=450p7goxZqg", 
+    embedUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
     description: "Tình yêu không phải là tìm thấy một người hoàn hảo, mà là học cách nhìn thấy những điều tuyệt vời từ một người chưa hoàn hảo."
   },
   images: {
@@ -71,24 +71,58 @@ export const weddingConfig = {
       "/gallery6.jpg",
     ]
   },
-  timeline: [
-    {
-      time: "09:00 AM",
-      title: "Lễ Vu Quy (Tea Ceremony)",
-      location: "Nhà Riêng Cô Dâu",
-      iconType: "Coffee" 
-    },
-    {
-      time: "11:30 AM",
-      title: "Lễ Thành Hôn (Wedding Ceremony)",
-      location: "Trung Tâm Hội Nghị Gem Center",
-      iconType: "GlassWater"
-    },
-    {
-      time: "12:30 PM",
-      title: "Khai Tiệc (Reception)",
-      location: "Sảnh Pollux - Gem Center",
-      iconType: "Music"
-    }
-  ]
+  timeline: {
+    groom: [
+      {
+        time: "07:00",
+        title: "Chuẩn bị",
+        location: "Nhà Trai",
+        iconType: "Coffee"
+      },
+      {
+        time: "08:30",
+        title: "Xuất Phát Đón Dâu",
+        location: "Di chuyển sang Nhà Gái",
+        iconType: "Car"
+      },
+      {
+        time: "10:30",
+        title: "Lễ Thành Hôn",
+        location: "Tại Nhà Gái",
+        iconType: "Heart"
+      },
+      {
+        time: "11:30",
+        title: "Tiệc Cưới",
+        location: "Trung Tâm Hội Nghị",
+        iconType: "GlassWater"
+      }
+    ],
+    bride: [
+      {
+        time: "06:30",
+        title: "Trang Điểm",
+        location: "Nhà Gái",
+        iconType: "Star"
+      },
+      {
+        time: "09:00",
+        title: "Lễ Vu Quy",
+        location: "Nhà Gái",
+        iconType: "Coffee"
+      },
+      {
+        time: "10:30",
+        title: "Nhà Trai Đến",
+        location: "Nhà Gái",
+        iconType: "Users"
+      },
+      {
+        time: "11:30",
+        title: "Tiệc Cưới",
+        location: "Trung Tâm Hội Nghị",
+        iconType: "GlassWater"
+      }
+    ]
+  }
 };
