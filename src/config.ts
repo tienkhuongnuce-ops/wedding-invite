@@ -15,7 +15,12 @@ export const weddingConfig = {
     mother: "Tiến Thị Hằng",
     address: "Hưng Đạo, Quốc Oai, Hà Nội",
     role: "Chú Rể (The Groom)",
-    mapUrl: "https://www.google.com/maps/dir/?api=1&destination=20.976492453098412, 105.67053970444307"
+    // Link to open Google Maps App (Directions)
+    mapUrl: "https://www.google.com/maps/dir/?api=1&destination=20.976492453098412, 105.67053970444307",
+    // Link to display PREVIEW on the website (Embed)
+    // INSTRUCTIONS: Go to Google Maps -> Share -> Embed a map -> Copy HTML -> Extract the "src" URL.
+    // Defaulting to a generated link based on coordinates (might have watermarks).
+    mapEmbedUrl: "https://maps.google.com/maps?q=20.976492453098412,105.67053970444307&hl=vi&z=14&output=embed"
   },
   bride: {
     firstName: "Thu Phương",
@@ -24,7 +29,10 @@ export const weddingConfig = {
     mother: "Lê Thị Thúy",
     address: "Tiền Hải, Thái Bình",
     role: "Cô Dâu (The Bride)",
-    mapUrl: "https://www.google.com/maps/dir/?api=1&destination=20.4399119892005, 106.53997740644134"
+    // Link to open Google Maps App (Directions)
+    mapUrl: "https://www.google.com/maps/dir/?api=1&destination=20.4399119892005, 106.53997740644134",
+    // Link to display PREVIEW on the website (Embed)
+    mapEmbedUrl: "https://maps.google.com/maps?q=20.4399119892005,106.53997740644134&hl=vi&z=14&output=embed"
   },
   date: {
     fullDate: "28 . 12 . 2025",
@@ -40,7 +48,7 @@ export const weddingConfig = {
     subtitle: "Lưu giữ khoảnh khắc",
     // Paste ANY valid YouTube link here. 
     // Works with: https://www.youtube.com/watch?v=... OR https://youtu.be/...
-    embedUrl: "https://www.youtube.com/watch?v=YNjqWlywvdc&list=RDYNjqWlywvdc&start_radio=1", 
+    embedUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
     description: "Tình yêu không phải là tìm thấy một người hoàn hảo, mà là học cách nhìn thấy những điều tuyệt vời từ một người chưa hoàn hảo."
   },
   images: {
