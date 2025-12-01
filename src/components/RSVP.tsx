@@ -13,6 +13,7 @@ const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    guestOf: 'groom', // Default value
     attending: 'yes',
     guests: '1',
     message: ''
@@ -36,7 +37,6 @@ const RSVP: React.FC = () => {
 
     // Check if API URL is set
     if (!rsvpApiUrl) {
-       // Fallback for demo/no-backend mode
        console.warn("No Google Sheet API URL configured in config.ts");
        setTimeout(() => {
          setSubmitted(true);
@@ -47,17 +47,15 @@ const RSVP: React.FC = () => {
 
     try {
       // Send data to Google Apps Script
-      // mode: 'no-cors' is required for Google Scripts to work without complex CORS setup
       await fetch(rsvpApiUrl, {
         method: 'POST',
         mode: 'no-cors', 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({ ...formData, type: 'rsvp' })
       });
 
-      // Since we use no-cors, we assume success if no network error occurred
       setSubmitted(true);
     } catch (err) {
       console.error(err);
@@ -68,13 +66,13 @@ const RSVP: React.FC = () => {
   };
 
   return (
-    <section id="rsvp" className="py-24 bg-wedding-cream relative border-t border-wedding-gold/10">
+    <section id="rsvp" className="py-24 bg-wedding-bg relative border-t border-wedding-primary/10">
       <div className="max-w-2xl mx-auto px-4 relative z-10">
         <SectionTitle title="R.S.V.P" subtitle={`Vui lòng phản hồi trước ngày ${date.rsvpDeadline}`} />
 
         {submitted ? (
-          <div className="bg-white rounded-2xl p-10 text-center shadow-lg animate-fade-in border border-wedding-gold/20">
-            <CheckCircle className="mx-auto text-wedding-gold w-16 h-16 mb-4" />
+          <div className="bg-white rounded-2xl p-10 text-center shadow-lg animate-fade-in border border-wedding-primary/20">
+            <CheckCircle className="mx-auto text-wedding-primary w-16 h-16 mb-4" />
             <h3 className="text-2xl font-serif text-gray-800 mb-2">Cảm ơn bạn!</h3>
             <p className="text-gray-600 mb-6">Chúng mình đã nhận được phản hồi của bạn.</p>
             <div className="p-4 bg-gray-50 rounded-lg text-sm text-gray-500">
@@ -82,7 +80,7 @@ const RSVP: React.FC = () => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 md:p-10 space-y-6 border border-wedding-gold/20">
+          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 md:p-10 space-y-6 border border-wedding-primary/20">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Họ và Tên</label>
@@ -92,7 +90,7 @@ const RSVP: React.FC = () => {
                       onChange={handleChange}
                       required 
                       type="text" 
-                      className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" 
+                      className="w-full border-b-2 border-gray-100 focus:border-wedding-primary px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" 
                       placeholder="Nguyễn Văn A" 
                     />
                 </div>
@@ -104,10 +102,43 @@ const RSVP: React.FC = () => {
                       onChange={handleChange}
                       required 
                       type="tel" 
-                      className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" 
+                      className="w-full border-b-2 border-gray-100 focus:border-wedding-primary px-0 py-2 outline-none transition-colors bg-transparent text-gray-800" 
                       placeholder="0912..." 
                     />
                 </div>
+              </div>
+
+              {/* Guest Of Selection */}
+              <div>
+                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Bạn là khách của?</label>
+                  <div className="flex gap-4">
+                      <label className="flex-1 cursor-pointer">
+                          <input 
+                            type="radio" 
+                            name="guestOf" 
+                            value="groom" 
+                            checked={formData.guestOf === 'groom'}
+                            onChange={handleChange}
+                            className="peer sr-only" 
+                          />
+                          <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-wedding-primary peer-checked:text-white peer-checked:border-transparent transition-all hover:bg-gray-50 font-medium text-sm">
+                              Nhà Trai
+                          </div>
+                      </label>
+                      <label className="flex-1 cursor-pointer">
+                          <input 
+                            type="radio" 
+                            name="guestOf" 
+                            value="bride" 
+                            checked={formData.guestOf === 'bride'}
+                            onChange={handleChange}
+                            className="peer sr-only" 
+                          />
+                          <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-wedding-primary peer-checked:text-white peer-checked:border-transparent transition-all hover:bg-gray-50 font-medium text-sm">
+                              Nhà Gái
+                          </div>
+                      </label>
+                  </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -123,7 +154,7 @@ const RSVP: React.FC = () => {
                               onChange={handleChange}
                               className="peer sr-only" 
                             />
-                            <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-wedding-red peer-checked:text-white peer-checked:border-transparent transition-all hover:bg-gray-50">
+                            <div className="text-center py-3 border border-gray-200 rounded-lg peer-checked:bg-wedding-primary peer-checked:text-white peer-checked:border-transparent transition-all hover:bg-gray-50">
                                 Có
                             </div>
                         </label>
@@ -148,13 +179,14 @@ const RSVP: React.FC = () => {
                         name="guests"
                         value={formData.guests}
                         onChange={handleChange}
-                        className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent text-gray-800"
+                        className="w-full border-b-2 border-gray-100 focus:border-wedding-primary px-0 py-2 outline-none transition-colors bg-transparent text-gray-800"
                         disabled={formData.attending === 'no'}
                      >
                         <option value="1">1 Người</option>
                         <option value="2">2 Người</option>
                         <option value="3">3 Người</option>
                         <option value="4">4 Người</option>
+                        <option value="5">5 Người</option>
                      </select>
                 </div>
               </div>
@@ -166,7 +198,7 @@ const RSVP: React.FC = () => {
                    value={formData.message}
                    onChange={handleChange}
                    rows={2} 
-                   className="w-full border-b-2 border-gray-100 focus:border-wedding-gold px-0 py-2 outline-none transition-colors bg-transparent resize-none text-gray-800" 
+                   className="w-full border-b-2 border-gray-100 focus:border-wedding-primary px-0 py-2 outline-none transition-colors bg-transparent resize-none text-gray-800" 
                    placeholder="Lời chúc..."
                  ></textarea>
               </div>
@@ -176,7 +208,7 @@ const RSVP: React.FC = () => {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full bg-wedding-red text-white font-bold py-4 rounded-xl hover:bg-red-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                className="w-full bg-wedding-primary text-white font-bold py-4 rounded-xl hover:bg-red-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
               >
                 {loading ? (
                     <>
