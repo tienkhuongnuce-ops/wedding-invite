@@ -48,7 +48,7 @@ export const weddingConfig = {
     subtitle: "Lưu giữ khoảnh khắc",
     // Paste ANY valid YouTube link here. 
     // Works with: https://www.youtube.com/watch?v=... OR https://youtu.be/...
-    embedUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
+    embedUrl: "https://www.youtube.com/watch?v=450p7goxZqg", 
     description: "Tình yêu không phải là tìm thấy một người hoàn hảo, mà là học cách nhìn thấy những điều tuyệt vời từ một người chưa hoàn hảo."
   },
   images: {
