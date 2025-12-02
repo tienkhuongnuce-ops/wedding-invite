@@ -89,6 +89,7 @@ const RSVP: React.FC = () => {
   return (
     <section id="rsvp" className="py-24 bg-wedding-bg relative border-t border-wedding-primary/10">
       <div className="max-w-2xl mx-auto px-4 relative z-10">
+        {/* Subtitle explicitly removed here */}
         <SectionTitle title="Xác Nhận Tham Gia" />
 
         {submitted ? (

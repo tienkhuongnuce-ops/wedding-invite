@@ -52,16 +52,24 @@ const Invitation: React.FC = () => {
                   <span className="h-[1px] w-16 md:w-24 bg-wedding-primary/60"></span>
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-names text-wedding-primary mb-3 drop-shadow-sm">Trân trọng kính mời</h2>
+              <h2 className="text-3xl md:text-4xl font-names text-wedding-primary mb-6 drop-shadow-sm">Trân trọng kính mời</h2>
               
               {/* Dynamic Guest Name Section */}
-              <div className="flex items-center justify-center gap-4 text-wedding-primary/90 mb-8 min-h-[2rem]">
+              <div className="flex flex-col items-center justify-center gap-2 text-wedding-primary mb-10 min-h-[4rem]">
                   {guestName ? (
-                    <span className="font-serif text-xl md:text-2xl font-bold border-b border-wedding-primary/30 pb-1">
-                      {guestName}
-                    </span>
+                    <>
+                      <span className="font-serif italic text-lg opacity-80">Đến dự hôn lễ của chúng mình</span>
+                      <span className="font-serif text-2xl md:text-4xl font-bold border-b-2 border-wedding-primary/20 pb-2 px-8 mt-2 text-wedding-primary">
+                        {guestName}
+                      </span>
+                    </>
                   ) : (
-                    <span className="font-serif italic text-lg opacity-80">Quý khách và Gia đình</span>
+                    <>
+                      <span className="font-serif italic text-lg opacity-80">Đến dự hôn lễ của chúng mình</span>
+                      <span className="font-serif text-xl md:text-3xl font-bold mt-2">
+                        Quý khách và Gia đình
+                      </span>
+                    </>
                   )}
               </div>
 
@@ -69,7 +77,7 @@ const Invitation: React.FC = () => {
               "Yêu nhau mấy núi cũng trèo, mấy sông cũng lội, mấy đèo cũng qua."
               <br />
               <span className="text-base font-sans not-italic text-gray-500 mt-4 block">
-                  Đến dự bữa cơm thân mật chung vui cùng gia đình chúng mình.
+                  Sự hiện diện của bạn là niềm vinh hạnh lớn nhất của chúng mình.
               </span>
               </p>
             </ScrollAnimation>
